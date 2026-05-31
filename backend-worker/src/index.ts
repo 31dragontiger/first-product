@@ -1,4 +1,11 @@
-{
+import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+
+const app = new Hono()
+
+app.use('*', cors())
+
+const data = {
   "diseases": [
     {
       "name": "고혈압",
@@ -194,3 +201,65 @@
     }
   ]
 }
+
+app.get('/', (c) => c.json({ message: 'Nursing Guide Worker is running' }))
+
+app.post('/api/interventions', async (c) => {
+  const info = await c.req.json()
+  const result = data.diseases.find(d => info.disease_name.includes(d.name))
+
+  if (!result) {
+    return c.json({ detail: "해당 질병에 대한 정보를 찾을 수 없습니다." }, 404)
+  }
+
+  let interventions = [...result.interventions]
+
+  if (info.blood_pressure) {
+    try {
+      const systolic = parseInt(info.blood_pressure.split('/')[0])
+      if (systolic >= 140) {
+        interventions.unshift({
+          action: `현재 혈압(${info.blood_pressure})이 높으므로 즉시 보고하고 안정을 유도합니다.`,
+          rationale: "고혈압으로 인한 뇌혈관 질환 등 급성 합병증을 예방하기 위함입니다."
+        })
+      } else if (systolic <= 90) {
+        interventions.unshift({
+          action: `현재 혈압(${info.blood_pressure})이 낮으므로 쇼크 징후를 관찰하고 다리를 올려줍니다.`,
+          rationale: "주요 장기로의 혈류 공급을 원활하게 하여 저혈압 쇼크를 방지하기 위함입니다."
+        })
+      }
+    } catch (e) {}
+  }
+
+  if (info.main_symptom) {
+    if (info.main_symptom.includes("통증")) {
+      interventions.push({
+        action: `호소하시는 통증('${info.main_symptom}') 강도를 NRS 척도로 사정하고 처방된 진통제를 투여합니다.`,
+        rationale: "통증은 신체적 스트레스를 유발하며 회복을 지연시키므로 적절한 관리가 필요합니다."
+      })
+    }
+    if (info.main_symptom.includes("호흡") || info.main_symptom.includes("숨")) {
+      interventions.push({
+        action: `호흡곤란 완화를 위해 반좌위(Semi-Fowler's position)를 취해주고 산소 포화도를 측정합니다.`,
+        rationale: "횡격막을 하강시켜 폐 확장을 돕고 산소 공급 상태를 확인하기 위함입니다."
+      })
+    }
+  }
+
+  let diagnosis = result.diagnosis
+  if (info.blood_pressure) {
+    diagnosis += ` (현재 혈압: ${info.blood_pressure})`
+  }
+  if (info.main_symptom) {
+    diagnosis += diagnosis.includes("관련된") ? `, ${info.main_symptom}` : ` 및 ${info.main_symptom}와 관련된 상태`
+  }
+
+  return c.json({
+    patient: info,
+    symptoms: result.symptoms,
+    diagnosis: diagnosis,
+    interventions: interventions
+  })
+})
+
+export default app
