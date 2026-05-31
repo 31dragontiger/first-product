@@ -1,0 +1,227 @@
+:root {
+  --primary: #004a99;
+  --secondary: #0078d4;
+  --accent: #e1f5fe;
+  --bg: #f5f7fa;
+  --text: #333;
+  --text-muted: #666;
+  --white: #ffffff;
+  --border: #e0e6ed;
+  --radius: 12px;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Nav Bar */
+.nav-bar {
+  background-color: var(--white);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-brand .icon {
+  font-size: 1.5rem;
+}
+
+.brand-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.sub-title {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-left: 5px;
+  padding-left: 10px;
+  border-left: 1px solid var(--border);
+}
+
+/* Content */
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 90%;
+  padding: 4rem 0;
+  flex: 1;
+}
+
+.search-hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.search-hero h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.search-hero p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+}
+
+/* Search Form */
+.search-input-wrapper {
+  display: flex;
+  background: var(--white);
+  padding: 8px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.search-input-wrapper input {
+  flex: 1;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  font-size: 1.1rem;
+  outline: none;
+  border-radius: 12px;
+}
+
+.search-input-wrapper button {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 0 2rem;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.search-input-wrapper button:hover {
+  opacity: 0.9;
+}
+
+/* Cards */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+  border: 1px solid var(--border);
+}
+
+.main-card {
+  border-left: 6px solid var(--primary);
+}
+
+.card-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.diagnosis-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--primary);
+}
+
+/* Intervention List */
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 3rem 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+.intervention-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.block-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.intervention-block p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.rationale-block {
+  background: #f8f9fa;
+  padding: 1.2rem;
+  border-radius: 8px;
+  border-left: 4px solid #dee2e6;
+}
+
+.rationale-block p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  background: var(--white);
+}
+
+.error-card {
+  background: #fff5f5;
+  color: #c53030;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #feb2b2;
+}
